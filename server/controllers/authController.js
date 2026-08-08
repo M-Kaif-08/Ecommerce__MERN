@@ -37,3 +37,28 @@ export const SignUp = async (req, res) => {
         return res.status(500).json({ success: false, message: error.message });
     }
 }
+
+export const VerifyEmail = async (req, res) => {
+    const { code } = req.body;
+    try {
+        const user = await User.findOne({
+            verificationToken: code,
+            verificationTokenExpiresat: { $gt: Date.now() }
+        })
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invaild or expired Verification code " })
+        }
+
+        user.isVerified = true;
+        user.verificationToken = undefined;
+        user.verificationTokenExpiresat = undefined;
+        await user.save();
+
+        // Sending welcome mail
+
+        return res.status(201).json({ success: true, message: "Verification successfully" })
+    } catch (error) {
+        console.log("Error in Verify email", error);
+        return res.status(500).json({ success: false, message: error.message });
+    }
+}
