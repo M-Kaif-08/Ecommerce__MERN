@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
 import { User } from "../models/User.js";
 import { generateTokenAndCookie } from '../utils/generateTokenAndCookie.js'
-import { bytes } from 'stream/consumers';
 
 export const SignUp = async (req, res) => {
     const { email, name, password } = req.body;
@@ -142,5 +141,25 @@ export const ResetPassword = async (req, res) => {
     } catch (error) {
         console.log("Error in reset password:", error);
         return res.status(500).json({ success: true, message: error.message });
+    }
+}
+
+export const CheckAuth = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId);
+        if (!user) {
+            return res.status(401).json({ success: false, message: "User not found" });
+        }
+        return res.status(200).json({
+            success: true,
+            message: "User Authorized",
+            user: {
+                ...user._doc,
+                password: undefined
+            }
+        })
+    } catch (error) {
+        console.log("Error in Checkauth:", error);
+        return res.status(500).json({ success: false, message: error.message });
     }
 }
