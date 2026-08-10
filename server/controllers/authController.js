@@ -28,7 +28,7 @@ export const SignUp = async (req, res) => {
 
         await user.save();
         //Jwt
-        generateTokenAndCookie(res, user._id);
+        generateTokenAndCookie(res, user._id, user.role);
         // Sending verification mail
 
 
@@ -76,7 +76,7 @@ export const Login = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid credentials" });
         }
 
-        generateTokenAndCookie(res, user._id);
+        generateTokenAndCookie(res, user._id, user.role);
         user.lastLogin = new Date();
         await user.save();
 
@@ -146,7 +146,7 @@ export const ResetPassword = async (req, res) => {
 
 export const CheckAuth = async (req, res) => {
     try {
-        const user = await User.findById(req.userId);
+        const user = await User.findById(req.user.Id);
         if (!user) {
             return res.status(401).json({ success: false, message: "User not found" });
         }

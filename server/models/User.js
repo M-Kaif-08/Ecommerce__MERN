@@ -14,13 +14,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         requried: true
     },
+    role: {
+        type: String,
+        enum: ["customer", "admin"],
+        default: "customer"
+    },
     isVerified: {
         type: Boolean,
         default: false
     },
-    lastLogin:{
-      type: Date,
-      default: Date.now
+    lastLogin: {
+        type: Date,
+        default: Date.now
     },
     verificationToken: String,
     verificationTokenExpiresat: Date,
