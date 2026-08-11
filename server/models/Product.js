@@ -10,7 +10,6 @@ const productSchema = new mongoose.Schema({
         url: String,
         publicId: String
     }
-}, { timestamps: true }
-)
+}, { timestamps: true });
 
 export const Product = mongoose.model("Product", productSchema);
