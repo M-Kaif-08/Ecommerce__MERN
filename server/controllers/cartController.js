@@ -20,7 +20,7 @@ export const addToCart = async (req, res) => {
         }
 
         // Check whether the user Cart already exists
-        const cart = await Cart.findOne({ userId });
+        let cart = await Cart.findOne({ userId });
         // If Cart does not exists, create a new cart
         if (!cart) {
             cart = await Cart.create({
@@ -48,7 +48,7 @@ export const addToCart = async (req, res) => {
         }
         // Save updated cart
         await cart.save();
-        return res.status(201).json({ success: true, message: "Product added to cart" }, cart);
+        return res.status(201).json({ success: true, message: "Product added to cart", cart });
     } catch (error) {
         console.log("Errot in Add to cart", error);
         return res.status(500).json({ success: false, message: error.message });
@@ -90,7 +90,7 @@ export const updateItemQuantity = async (req, res) => {
         // Find the user cart
         const cart = await Cart.findOne({ userId });
         if (!cart) {
-            return req.status(404).json({ success: false, message: "Cart not found" });
+            return res.status(404).json({ success: false, message: "Cart not found" });
         }
         // Find the product in the cart
         const item = cart.items.find(item => item.productId.toString() === productId);

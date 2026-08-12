@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/auth/admin', adminAuthRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/chart', cartRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.listen(port, () => {
     connectDB();
