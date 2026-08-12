@@ -72,11 +72,11 @@ const orderSchema = new mongoose.Schema(
             default: "pending"
         },
         orderStatus: {
-            tpye: String,
+            type: String,
             enum: ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"],
             default: "pending"
         }
     }, { timestamps: true }
 );
 
-export default Order = mongoose.model("Order", orderSchema);
+export const Order = mongoose.model("Order", orderSchema);
