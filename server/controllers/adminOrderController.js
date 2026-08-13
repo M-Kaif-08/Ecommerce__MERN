@@ -54,7 +54,7 @@ export const updateOrderStatus = async (req, res) => {
 
         await order.save();
 
-        return res.status(201).json({ success: true, message: "Order status updated successfully", order });
+        return res.status(200).json({ success: true, message: "Order status updated successfully", order });
     } catch (error) {
         console.log("Error in Admin update order status", error);
         return res.status(500).json({ success: false, message: error.message });

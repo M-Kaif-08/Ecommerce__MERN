@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
 import { User } from "../models/User.js";
 import { generateTokenAndCookie } from '../utils/generateTokenAndCookie.js'
+import { sendVerificationEmail, sendWelcomeEmail, sendPaswordResetEmail, sendResetPasswordEmail } from '../utils/email.js'
 
 export const SignUp = async (req, res) => {
     const { email, name, password } = req.body;
@@ -23,14 +24,14 @@ export const SignUp = async (req, res) => {
             name,
             password: hashedPassword,
             verificationToken,
-            verificationTokenExpiresat: Date.now() + 24 * 60 * 60 * 1000  // 24hours
+            verificationTokenExpiresat: Date.now() + 15 * 60 * 1000  // 15mins
         })
 
         await user.save();
         //Jwt
         generateTokenAndCookie(res, user._id, user.role);
         // Sending verification mail
-
+        await sendVerificationEmail(user.email, verificationToken);
 
         return res.status(201).json({ success: true, message: "User created successfully" });
     } catch (error) {
@@ -56,6 +57,7 @@ export const VerifyEmail = async (req, res) => {
         await user.save();
 
         // Sending welcome mail
+        await sendWelcomeEmail(user.email, user.name);
 
         return res.status(201).json({ success: true, message: "Verification successfully" })
     } catch (error) {
@@ -109,6 +111,7 @@ export const ForgotPassword = async (req, res) => {
         await user.save();
 
         // Send reset password mail
+        await sendPaswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`)
 
         return res.status(200).json({ success: true, message: "Reset password link successfully" });
     } catch (error) {
@@ -136,6 +139,8 @@ export const ResetPassword = async (req, res) => {
         user.resetPasswordToken = undefined;
         user.resetPasswordTokenExpired = undefined;
         await user.save();
+        // Sending success reset password mail
+        await sendResetPasswordEmail(user.email);
 
         return res.status(201).json({ success: true, message: "Password reset successfully" });
     } catch (error) {
