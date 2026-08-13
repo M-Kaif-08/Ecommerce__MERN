@@ -96,16 +96,16 @@ export const getMyOrders = async (req, res) => {
 
 export const getOrderById = async (req, res) => {
     try {
-     const userId = req.user.Id;
-     const {id} = req.params;
+        const userId = req.user.Id;
+        const { id } = req.params;
 
-     const order = await Order.findOne({_id: id, userId});
+        const order = await Order.findOne({ _id: id, userId });
 
-     if(!order){
-        return res.status(404).json({success: false, message: "Order not found"});
-     }
+        if (!order) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
 
-     return res.status(200).json({success: true, order});
+        return res.status(200).json({ success: true, order });
     } catch (error) {
         console.log("Error in Get Order by id", error);
         return res.status(500).json({ success: false, message: error.message });
