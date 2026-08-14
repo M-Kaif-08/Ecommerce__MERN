@@ -31,7 +31,7 @@ export const SignUp = async (req, res) => {
         //Jwt
         generateTokenAndCookie(res, user._id, user.role);
         // Sending verification mail
-        await sendVerificationEmail(user.email, verificationToken);
+        await sendVerificationEmail(user.email, user.name, verificationToken);
 
         return res.status(201).json({ success: true, message: "User created successfully" });
     } catch (error) {
@@ -59,7 +59,7 @@ export const VerifyEmail = async (req, res) => {
         // Sending welcome mail
         await sendWelcomeEmail(user.email, user.name);
 
-        return res.status(201).json({ success: true, message: "Verification successfully" })
+        return res.status(200).json({ success: true, message: "Verification successfully" })
     } catch (error) {
         console.log("Error in Verify email", error);
         return res.status(500).json({ success: false, message: error.message });
@@ -82,7 +82,7 @@ export const Login = async (req, res) => {
         user.lastLogin = new Date();
         await user.save();
 
-        return res.status(201).json({ success: true, message: "Login Successfully" });
+        return res.status(200).json({ success: true, message: "Login Successfully" });
     } catch (error) {
         console.log("Error in Login:", error);
         return res.status(500).json({ success: false, message: error.message });
@@ -111,7 +111,7 @@ export const ForgotPassword = async (req, res) => {
         await user.save();
 
         // Send reset password mail
-        await sendPaswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`)
+        await sendPaswordResetEmail(user.email, user.name, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`)
 
         return res.status(200).json({ success: true, message: "Reset password link successfully" });
     } catch (error) {
@@ -140,9 +140,9 @@ export const ResetPassword = async (req, res) => {
         user.resetPasswordTokenExpired = undefined;
         await user.save();
         // Sending success reset password mail
-        await sendResetPasswordEmail(user.email);
+        await sendResetPasswordEmail(user.email, user.name);
 
-        return res.status(201).json({ success: true, message: "Password reset successfully" });
+        return res.status(200).json({ success: true, message: "Password reset successfully" });
     } catch (error) {
         console.log("Error in reset password:", error);
         return res.status(500).json({ success: true, message: error.message });

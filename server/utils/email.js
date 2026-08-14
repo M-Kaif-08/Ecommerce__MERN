@@ -1,13 +1,13 @@
 import transporter from "../config/mail.js";
 import { VERIFICATION_EMAIL_TEMPLATE, WELCOME_EMAIL_TEMPLATE, PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE } from './emailTemplate.js'
 
-export const sendVerificationEmail = async (email, verificationToken) => {
+export const sendVerificationEmail = async (email, name, verificationToken) => {
     try {
         const response = await transporter.sendMail({
             from: `"Stepora" <${process.env.MAIL_USER}>`,
             to: email,
             subject: "Verify your email",
-            html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken)
+            html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken).replace("{name}", name)
         });
 
         console.log("Verification email sent:", response.messageId);
@@ -33,13 +33,13 @@ export const sendWelcomeEmail = async (email, name) => {
     }
 }
 
-export const sendPaswordResetEmail = async (email, resetUrl) => {
+export const sendPaswordResetEmail = async (email, name, resetUrl) => {
     try {
         const response = await transporter.sendMail({
             from: `"Stepora" <${process.env.MAIL_USER}>`,
             to: email,
             subject: "Reset your password",
-            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetUrl)
+            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{name}", name).replace("{resetURL}", resetUrl)
         });
 
         console.log("Reset password email:", response.messageId);
@@ -49,13 +49,13 @@ export const sendPaswordResetEmail = async (email, resetUrl) => {
     }
 }
 
-export const sendResetPasswordEmail = async (email) => {
+export const sendResetPasswordEmail = async (email, name) => {
     try {
         const response = await transporter.sendMail({
             from: `"Stepora" <${process.env.MAIL_USER}>`,
             to: email,
             subject: "Reset password successfully",
-            html: PASSWORD_RESET_REQUEST_TEMPLATE
+            html: PASSWORD_RESET_SUCCESS_TEMPLATE.replace("{name}", name)
         });
 
         console.log("Successful reset password email:", response.messageId);

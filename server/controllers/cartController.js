@@ -108,7 +108,7 @@ export const updateItemQuantity = async (req, res) => {
         // Populate products information before sending responce
         await cart.populate("items.productId");
 
-        return res.status(201).json({ success: true, message: "Cart updated successfully", cart });
+        return res.status(200).json({ success: true, message: "Cart updated successfully", cart });
     } catch (error) {
         console.log("Error in update cart", error);
         return res.status(500).json({ success: false, message: error.message });
@@ -142,7 +142,7 @@ export const removeFromCart = async (req, res) => {
         // Populate products information before sending responce
         await cart.populate("items.productId");
 
-        return res.status(201).json({ success: true, message: "Product removed from cart", cart });
+        return res.status(200).json({ success: true, message: "Product removed from cart", cart });
     } catch (error) {
         console.log("Error in Remove Product in the cart bt ID", error);
         return res.status(500).json({ success: false, message: error.message });

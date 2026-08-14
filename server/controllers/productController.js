@@ -3,7 +3,22 @@ import cloudinary from '../config/cloudinary.js'
 
 export const getProducts = async (req, res) => {
     try {
-        const products = await Product.find({});
+        const { search, category } = req.query;
+        const filter = {};
+
+        //Search by name
+        if (search) {
+            filter.name = {
+                $regex: search,
+                $options: "i"
+            };
+        }
+
+        // Category filter
+        if (category) {
+            filter.category = category;
+        }
+        const products = await Product.find(filter);
         return res.status(200).json(products);
     } catch (error) {
         console.log("Error in Get Product", error);
@@ -110,7 +125,7 @@ export const UpdateProduct = async (req, res) => {
         }
 
         const updatedProduct = await product.save();
-        return res.status(201).json({ success: true, message: "Product updated successfully", product: updatedProduct });
+        return res.status(200).json({ success: true, message: "Product updated successfully", product: updatedProduct });
     } catch (error) {
         console.log("Error in Update product", error);
         return res.status(500).json({ message: error.message });
