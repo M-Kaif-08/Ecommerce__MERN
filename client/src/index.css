@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: #05010D;
+  --color-foreground: #f0f2f5;
+
+  --color-primary: #050101;
+  --color-primary-foreground: #f8f0e7;
+
+  --color-highlight: #f5a623;
+
+  --color-surface: #ffffff;
+  --color-border: #242b32;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* background-color: var(--color-background); */
+    font-family: "Inter", sans-serif;
+  }
+}
+
+@layer components {
+  .font-play {
+    font-family: "Playfair Display", serif;
+  }
+}

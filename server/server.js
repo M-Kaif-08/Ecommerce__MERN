@@ -1,7 +1,8 @@
-import 'dotenv/config';
+import 'dotenv/config'
 import express from 'express'
-import cookieParser from 'cookie-parser';
-import { connectDB } from './config/db.js';
+import cookieParser from 'cookie-parser'
+import cors from 'cors'
+import { connectDB } from './config/db.js'
 
 import authRoutes from './routes/authRoutes.js'
 import adminAuthRoutes from './routes/adminAuthRoutes.js'
@@ -16,6 +17,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: [process.env.CLIENT_URL, process.env.ADMIN_URL], credentials: true }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/auth/admin', adminAuthRoutes);
