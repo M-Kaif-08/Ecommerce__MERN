@@ -1,6 +1,18 @@
+import { Link } from 'react-router'
+
 import AnimatedBorderButton from "../components/AnimatedBtn"
 
+import { FaArrowRightLong } from "react-icons/fa6";
+
+
 const Home = () => {
+
+    const categories = [
+        { name: "Sport Shoes", href: "/products?category=sport", image: "Sport-shoes.png", description: "Built for movement, comfort, and everyday performance." },
+        { name: "Formal Footwear", href: "/products?category=formal", image: "Formal-footwear.webp", description: "Sophisticated styles crafted for polished, timeless occasions." },
+        { name: "Boots", href: "/products?category=boots", image: "Boots.webp", description: "Rugged designs combining durability, confidence, and modern style." },
+        { name: "Sandals", href: "/products?category=sandels", image: "Sandal.webp", description: "Lightweight comfort designed for effortless everyday wear." }
+    ]
     return (
         <main className="relative overflow-hidden">
             {/* Hero Section */}
@@ -24,6 +36,27 @@ const Home = () => {
                 {/* CTA Buttons */}
                 <div className="flex justify-center mt-5">
                     <AnimatedBorderButton>SHOP NOW</AnimatedBorderButton>
+                </div>
+            </section>
+            {/* Category Section */}
+            <section className="Category relative min-h-[110vh] overflow-hidden flex flex-col items-center bg-primary space-y-6">
+                {/* Heading */}
+                <h3 className="text-highlight mt-22 uppercase tracking-widest">Shop by Category</h3>
+                <h3 className="font-play text-5xl">Explore the collection</h3>
+                <div className="container px-5 pt-9">
+                    {/* Category Grid */}
+                    <div className="grid gap-6 px-10 lg:grid-cols-4 md:grid-cols-2">
+                        {categories.map((category, index) => (
+                            <Link key={index} to={category.href}>
+                                <img src={category.image} alt={category.name} />
+                                <div className='px-2'>
+                                    <h4 className='font-play text-xl font-semibold mt-4'>{category.name}</h4>
+                                    <p className='text-muted text-sm mt-3'>{category.description}</p>
+                                    <p className='uppercase text-sm mt-3 flex items-center gap-4'>Shop {category.name}<FaArrowRightLong className='w-10 h-4' /></p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </section>
         </main>

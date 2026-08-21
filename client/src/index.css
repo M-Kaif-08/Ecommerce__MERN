@@ -5,12 +5,13 @@
   --color-background: #000000;
   --color-foreground: #f0f2f5;
 
-  --color-primary: #050101;
-  --color-primary-foreground: #f8f0e7;
+  --color-primary: #f8f0e7;
+
+  --color-secondary: #ffffff;
 
   --color-muted: #707070;
 
-  --color-highlight: #f5a623;
+  --color-highlight: #9C6409;
 
   --color-surface: #ffffff;
   --color-border: #242b32;
