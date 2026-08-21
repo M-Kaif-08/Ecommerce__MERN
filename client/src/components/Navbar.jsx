@@ -16,8 +16,8 @@ function Navbar() {
     ]
 
     return (
-        <header className="fixed right-4 left-4 top-1 z-50">
-            <nav className="container mx-auto md:px-12 px-4 py-2 flex justify-between items-center text-foreground rounded-full bg-background">
+        <header className="w-full bg-background  text-foreground">
+            <nav className="container w-full md:px-12 px-4 py-2 flex justify-between items-center">
                 <Link to="/" className="md:text-4xl text-3xl font-play">Step<span className="text-muted">ora</span></Link>
                 {/* Desktop Nav */}
                 <div className="hidden sm:flex">
@@ -46,7 +46,7 @@ function Navbar() {
                 </button>
             </nav>
             {/* Mobile Nav */}
-            {mobileMenuButton && <div className="sm:hidden bg-foreground rounded-3xl p-3 my-2">
+            {mobileMenuButton && <div className="sm:hidden bg-foreground w-full rounded-3xl p-3 my-2 fixed z-50">
                 <div className="flex flex-col gap-3 px-5 font-semibold">
                     {navlinks.map((link, index) => (
                         <Link

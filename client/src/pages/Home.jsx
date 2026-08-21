@@ -16,16 +16,16 @@ const Home = () => {
     return (
         <main className="relative overflow-hidden">
             {/* Hero Section */}
-            <section className="Hero relative min-h-screen overflow-hidden bg-background text-foreground">
+            <section className="Hero relative min-h-[93vh] overflow-hidden bg-background text-foreground">
                 {/* Glow center */}
                 <div className="absolute left-1/2 top-1/2 w-[90%] sm:w-150 md:w-180 lg:w-200 h-100 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/10 blur-[100px]" />
                 {/* Header */}
-                <div className="mt-35">
+                <div className="mt-22">
                     <h1 className="text-center text-3xl md:text-5xl font-thin">You Deserve Luxury in</h1>
                     <h1 className="text-center text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-widest bg-linear-to-r from-foreground via-foreground/70 to-foreground/5 bg-clip-text text-transparent">EVERY STEP</h1>
                 </div>
                 {/* Image */}
-                <div className="absolute left-1/2 top-[40%] sm:top-[30%] lg:top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] sm:w-[60%] md:w-auto">
+                <div className="absolute left-1/2 top-[40%] sm:top-[30%] lg:top-[47%] -translate-x-1/2 -translate-y-1/2 w-[70%] sm:w-[60%] md:w-auto">
                     <img src="Hero-section-shoe.png" alt="Hero Section image" className="mix-blend-screen w-full h-auto md:w-auto md:h-auto" />
                 </div>
                 {/* Highligths */}
@@ -39,10 +39,10 @@ const Home = () => {
                 </div>
             </section>
             {/* Category Section */}
-            <section className="Category relative min-h-[110vh] overflow-hidden flex flex-col items-center bg-primary space-y-6">
+            <section className="Category relative min-h-[110vh] overflow-hidden flex flex-col items-center bg-primary space-y-6 pb-10">
                 {/* Heading */}
-                <h3 className="text-highlight mt-22 uppercase tracking-widest">Shop by Category</h3>
-                <h3 className="font-play text-5xl">Explore the collection</h3>
+                <h3 className="text-highlight mt-22 text-center uppercase tracking-widest">Shop by Category</h3>
+                <h3 className="font-play text-center lg:text-5xl md:text-4xl text-3xl">Explore the collection</h3>
                 <div className="container px-5 pt-9">
                     {/* Category Grid */}
                     <div className="grid gap-6 px-10 lg:grid-cols-4 md:grid-cols-2">
@@ -56,6 +56,23 @@ const Home = () => {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+                </div>
+            </section>
+            {/* Craft Section */}
+            <section className='craft relative overflow-hidden bg-secondary'>
+                {/* Craft Grid */}
+                <div className='grid md:grid-cols-2 min-h-screen'>
+                    {/* Image */}
+                    <div className='p-24'>
+                        <img src="craft-section.jpg" alt="Craft Section Image" className='w-full h-full object-cover' />
+                    </div>
+                    {/* Craft Content */}
+                    <div className='flex flex-col justify-center gap-5 px-20'>
+                        <h3 className='text-highlight uppercase tracking-widest'>The Craft</h3>
+                        <h4 className='font-play lg:text-5xl md:text-4xl text-3xl'>Crafted for Every Step.</h4>
+                        <p className='text-muted font-medium'>Every Stepora pair is designed with a careful balance of comfort, quality, and timeless style. From supportive sport shoes to refined formal footwear, rugged boots, and effortless sandals, every detail is thoughtfully considered.</p>
+                        <p className='text-muted font-medium'>We choose quality materials, refined construction, and purposeful design to create footwear made for more than just the moment — shoes you can rely on, step after step.</p>
                     </div>
                 </div>
             </section>
