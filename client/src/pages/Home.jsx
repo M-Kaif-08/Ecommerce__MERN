@@ -3,7 +3,9 @@ import { Link } from 'react-router'
 import AnimatedBorderButton from "../components/AnimatedBtn"
 
 import { FaArrowRightLong } from "react-icons/fa6";
-
+import { BsTruck, BsBuildingCheck } from "react-icons/bs";
+import { PiHandHeart } from "react-icons/pi";
+import { LiaHeadsetSolid } from "react-icons/lia";
 
 const Home = () => {
 
@@ -12,6 +14,13 @@ const Home = () => {
         { name: "Formal Footwear", href: "/products?category=formal", image: "Formal-footwear.webp", description: "Sophisticated styles crafted for polished, timeless occasions." },
         { name: "Boots", href: "/products?category=boots", image: "Boots.webp", description: "Rugged designs combining durability, confidence, and modern style." },
         { name: "Sandals", href: "/products?category=sandels", image: "Sandal.webp", description: "Lightweight comfort designed for effortless everyday wear." }
+    ]
+
+    const facilites = [
+        { icon: BsTruck, title: "Free Shipping", description: "Free delivery on all orders within Pakistan." },
+        { icon: PiHandHeart, title: "Hand-Crafted", description: "Each pair finished by hand." },
+        { icon: BsBuildingCheck, title: "Built to be Resoled", description: "Designed to be rebuilt and worn for decades." },
+        { icon: LiaHeadsetSolid, title: "Personal Service", description: "Reach us on WhatsApp from 10am to 8pm." }
     ]
     return (
         <main className="relative overflow-hidden">
@@ -74,6 +83,21 @@ const Home = () => {
                         <p className='text-muted font-medium'>Every Stepora pair is designed with a careful balance of comfort, quality, and timeless style. From supportive sport shoes to refined formal footwear, rugged boots, and effortless sandals, every detail is thoughtfully considered.</p>
                         <p className='text-muted font-medium'>We choose quality materials, refined construction, and purposeful design to create footwear made for more than just the moment — shoes you can rely on, step after step.</p>
                     </div>
+                </div>
+            </section>
+            {/* Facility Section or Why choose Stepora */}
+            <section className='ChooseStepora relative overflow-hidden bg-background text-foreground py-15 space-y-6'>
+                {/* Heading */}
+                <h3 className='text-center font-light uppercase tracking-widest mt-7'>Why choose <span className='font-play'>Stepora</span></h3>
+                {/* grid Content */}
+                <div className='grid grid-cols-2 lg:grid-cols-4 m-15 items-center gap-15'>
+                    {facilites.map((facility, index) => (
+                        <div key={index} className='flex flex-col gap-3 justify-center items-center'>
+                            {<facility.icon className='w-8 h-8 text-highlight' />}
+                            <h4 className='font-play'>{facility.title}</h4>
+                            <p className='text-muted text-sm text-center'>{facility.description}</p>
+                        </div>
+                    ))}
                 </div>
             </section>
         </main>
