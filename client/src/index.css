@@ -1,19 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 
+:root {
+  /* backgrounds */
+  --ink: #0a0908;
+  /* page background, warm near-black */
+  --ink-light: #141212;
+  /* cards, panels, inputs */
+  --ink-border: rgba(245, 241, 236, 0.1);
+
+  /* text */
+
+  /* primary text on dark */
+  --cream: #ffffff;
+  /* muted text */
+  --stone: #9c9491;
+
+  /* brand gradient — lifted from the shoe: plum upper, orchid mid, rose laces */
+  --plum: #4d2569;
+  --orchid: #93408c;
+  --rose: #d95f82;
+  --coral: #e8896a;
+}
+
 @theme {
-  --color-background: #000000;
-  --color-foreground: #f0f2f5;
+  --color-background: var(--ink);
+  --color-foreground: var(--cream);
 
-  --color-primary: #050101;
-  --color-primary-foreground: #f8f0e7;
+  --color-light-background: var(--ink-light);
 
-  --color-muted: #707070;
+  --color-primary: var(--rose);
 
-  --color-highlight: #f5a623;
+  --color-muted: var(--stone);
 
-  --color-surface: #ffffff;
-  --color-border: #242b32;
+  --color-border: var(--ink-border);
 }
 
 @layer base {
@@ -23,12 +43,36 @@
 
   body {
     font-family: "Inter", sans-serif;
+    color: var(--cream);
+    background-color: var(--ink);
   }
 }
 
 @layer components {
   .font-play {
     font-family: "Playfair Display", serif;
+  }
+
+  /* signature gradient — use sparingly: primary CTA fills + one accent per page */
+  .bg-brand-gradient {
+    background-image: linear-gradient(115deg, var(--plum) 0%, var(--orchid) 50%, var(--rose) 100%);
+  }
+
+  .bg-light-gradient{
+    background-image: linear-gradient(115deg, color-mix(in srgb, var(--rose) 20%, transparent) 0%, color-mix(in srgb, var(--orchid) 20%, transparent) 50%, color-mix(in srgb, var(--plum) 20%, transparent) 100%);
+  }
+
+  .text-brand-gradient {
+    background-image: linear-gradient(115deg, var(--plum) 0%, var(--orchid) 55%, var(--rose) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* soft ambient glow used once per page behind a hero/product moment */
+  .brand-glow {
+    background: radial-gradient(closest-side, rgba(147, 64, 140, 0.35), transparent 70%);
+    filter: blur(40px);
   }
 }
 
