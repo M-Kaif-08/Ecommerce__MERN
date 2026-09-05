@@ -58,7 +58,7 @@
     background-image: linear-gradient(115deg, var(--plum) 0%, var(--orchid) 50%, var(--rose) 100%);
   }
 
-  .bg-light-gradient{
+  .bg-light-gradient {
     background-image: linear-gradient(115deg, color-mix(in srgb, var(--rose) 20%, transparent) 0%, color-mix(in srgb, var(--orchid) 20%, transparent) 50%, color-mix(in srgb, var(--plum) 20%, transparent) 100%);
   }
 
@@ -73,6 +73,12 @@
   .brand-glow {
     background: radial-gradient(closest-side, rgba(147, 64, 140, 0.35), transparent 70%);
     filter: blur(40px);
+  }
+
+  .grid-footer {
+    display: grid;
+    align-items: flex-start;
+    grid-template-columns: 2fr 1fr 1fr;
   }
 }
 
@@ -95,5 +101,28 @@
     background-color: color-mix(in srgb, #ffffff 5%, transparent);
     backdrop-filter: blur(16px);
     box-shadow: 0 0 20px color-mix(in srgb, #ffffff 20%, transparent);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-footer {
+    display: grid;
+    justify-self: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "footer-content footer-content"
+      "footer-product-nav footer-company-nav";
+  }
+
+  .area-footer-content {
+    grid-area: footer-content;
+  }
+
+  .area-footer-product-nav {
+    grid-area: footer-product-nav;
+  }
+
+  .area-footer-company-nav {
+    grid-area: footer-company-nav;
   }
 }

@@ -18,14 +18,14 @@ const Footer = () => {
   return (
     <footer className="min-h-[30vh] border border-border">
 
-      <div className="grid lg:grid-cols-[2fr_1fr_1fr] items-start justify-center px-30 py-15">
+      <div className="grid-footer gap-4 md:px-30 py-15">
 
-        <div className="flex flex-col gap-3">
+        <div className="area-footer-content flex flex-col gap-3">
           <Link to="/" className="text-3xl font-play">Step<span className="text-muted">ora</span></Link>
           <p className="text-muted">Performance footwear crafted for comfort, style, and <br /> every step ahead.</p>
         </div>
 
-        <div className="flex flex-col justify-center gap-4">
+        <div className="area-footer-product-nav flex flex-col justify-center gap-4">
           <Link to="/products" className="text-sm">Shop</Link>
           <div className="flex flex-col justify-center gap-4">
             {categories.map((category, index) => (
@@ -34,7 +34,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-4">
+        <div className="area-footer-company-nav flex flex-col justify-center gap-4">
           <p className="text-sm">Company</p>
           <div className="flex flex-col justify-center gap-4">
             {company.map((link, index) => (
