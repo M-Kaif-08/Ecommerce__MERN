@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 
 import Input from '../../components/common/Input';
+import { useAuthStore } from '../../store/authStore';
 
 import { IoPersonOutline } from "react-icons/io5";
-import { FiMail } from "react-icons/fi";
+import { FiMail, FiLoader } from "react-icons/fi";
 import { LuLock } from "react-icons/lu";
 
 const Signup = () => {
@@ -13,10 +14,18 @@ const Signup = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const { signUp, error, loading } = useAuthStore();
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log(name, email, password);
+    try {
+      await signUp(email, name, password);
+      navigate('/verify-email');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -34,6 +43,7 @@ const Signup = () => {
             <Input
               icon={IoPersonOutline}
               type="text"
+              required
               placeholder="Full Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -41,6 +51,7 @@ const Signup = () => {
             <Input
               icon={FiMail}
               type="email"
+              required
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -48,17 +59,22 @@ const Signup = () => {
             <Input
               icon={LuLock}
               type="password"
+              required
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
+
             <motion.button
               type='submit'
               className='w-full px-4 py-3 mt-5 font-bold font-play rounded-xl bg-brand-gradient focus:ring-1 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-background'
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              disabled={loading}
             >
-              Sign Up
+              {loading ? <FiLoader className='mx-auto animate-spin' size={24} /> : "Sign Up"}
             </motion.button>
           </form>
         </div>

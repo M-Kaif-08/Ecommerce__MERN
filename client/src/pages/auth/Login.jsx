@@ -1,19 +1,31 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { motion } from 'motion/react';
+import { useAuthStore } from '../../store/authStore';
 
 import Input from '../../components/common/Input';
+import toast from 'react-hot-toast';
 
-import { FiMail } from "react-icons/fi";
+import { FiMail, FiLoader } from "react-icons/fi";
 import { LuLock } from "react-icons/lu";
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const { loading, error, login } = useAuthStore();
+
+    const handleLogin = async (e) => {
         e.preventDefault();
+        try {
+            await login(email, password);
+            navigate('/');
+            toast.success("Login successfully")
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -47,13 +59,17 @@ const Login = () => {
                                 Forgot Password?
                             </Link>
                         </div>
+
+                        {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
+
                         <motion.button
                             type='submit'
                             className='w-full px-4 py-3 mt-5 font-bold font-play rounded-xl bg-brand-gradient focus:ring-1 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-background'
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
+                            disabled={loading}
                         >
-                            Login
+                            {loading ? <FiLoader className='mx-auto animate-spin' size={24} /> : "Login"}
                         </motion.button>
                     </form>
                 </div>

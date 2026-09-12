@@ -7,23 +7,28 @@ import Signup from './pages/auth/Signup'
 import Login from './pages/auth/Login'
 import EmailVerification from './pages/auth/EmailVerification'
 
+import { Toaster } from 'react-hot-toast';
+
 function App() {
 
   return (
-    <Routes>
+    <div>
+      <Routes>
 
-      {/* Auth Routes */}
-      <Route path='/signup' element={<Signup />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/verify-email' element={<EmailVerification />} />
+        {/* Auth Routes */}
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/verify-email' element={<EmailVerification />} />
 
-      <Route element={<MainLayout />}>
-        <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Shop />} />
-        <Route path='/products/:id' element={<ProductDetails />} />
-      </Route>
+        <Route element={<MainLayout />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<Shop />} />
+          <Route path='/products/:id' element={<ProductDetails />} />
+        </Route>
 
-    </Routes>
+      </Routes>
+      <Toaster />
+    </div>
   )
 }
 

@@ -1,21 +1,24 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
+import toast from 'react-hot-toast';
+import { useAuthStore } from "../../store/authStore";
+
+import { FiLoader } from "react-icons/fi";
 
 const EmailVerification = () => {
 
     const [code, setCode] = useState(["", "", "", "", "", ""]);
     const inputRefs = useRef([]);
     const navigate = useNavigate();
+    const { loading, error, verifyEmail } = useAuthStore();
 
     const handleChange = (index, value) => {
         const newCode = [...code]
-        console.log(newCode);
 
         // Handle Pasted Content
         if (value.length > 1) {
             const pastedCode = value.slice(0, 6).split("");
-            console.log(pastedCode);
             for (let i = 0; i < 6; i++) {
                 newCode[i] = pastedCode[i] || "";
             }
@@ -42,10 +45,16 @@ const EmailVerification = () => {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const verificationCode = code.join("");
-        alert(`Verification code submitted: ${verificationCode}`);
+        try {
+            await verifyEmail(verificationCode);
+            navigate('/');
+            toast.success("Email Verification Successfully");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -73,7 +82,8 @@ const EmailVerification = () => {
                                     key={index}
                                     ref={(el) => (inputRefs.current[index] = el)}
                                     type="text"
-                                    maxLength='6'
+                                    maxLength={6}
+                                    inputMode="numeric"
                                     value={digit}
                                     onChange={(e) => handleChange(index, e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(index, e)}
@@ -81,13 +91,17 @@ const EmailVerification = () => {
                                 />
                             ))}
                         </div>
+
+                        {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
+
                         <motion.button
                             type='submit'
                             className='w-full px-4 py-3 mt-5 font-bold font-play rounded-xl bg-brand-gradient focus:ring-1 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-background'
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
+                            disabled={loading}
                         >
-                            Verify Email
+                            {loading ? <FiLoader className='mx-auto animate-spin' size={24} /> : "Verify Email"}
                         </motion.button>
                     </form>
                 </div>
