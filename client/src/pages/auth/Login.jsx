@@ -15,12 +15,13 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const navigate = useNavigate();
 
-    const { loading, error, login } = useAuthStore();
+    const { loading, error, login, checkAuth } = useAuthStore();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             await login(email, password);
+            await checkAuth();
             navigate('/');
             toast.success("Login successfully")
         } catch (error) {

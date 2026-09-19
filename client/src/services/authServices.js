@@ -5,8 +5,13 @@ export const signUp = async (email, name, password) => {
     return response;
 }
 
-export const login = async (email, password)=>{
-    const response = await api.post('/auth/login', {email, password});
+export const login = async (email, password) => {
+    const response = await api.post('/auth/login', { email, password });
+    return response;
+}
+
+export const checkAuth = async () => {
+    const response = await api.get('/auth/check-auth');
     return response;
 }
 
