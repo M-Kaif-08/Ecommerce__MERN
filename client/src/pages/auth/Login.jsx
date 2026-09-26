@@ -47,6 +47,7 @@ const Login = () => {
                             placeholder="Email Address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                         <Input
                             icon={LuLock}
@@ -54,6 +55,7 @@ const Login = () => {
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                         <div className='flex items-center mb-6'>
                             <Link to='/forgot-password' className='text-sm text-primary hover:underline'>

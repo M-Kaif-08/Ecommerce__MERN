@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { signUp, login, checkAuth, verifyEmail } from "../services/authServices";
+import { signUp, login, checkAuth, verifyEmail, forgotPassword, resetPassword } from "../services/authServices";
 
 export const useAuthStore = create((set) => ({
     user: null,
@@ -50,6 +50,30 @@ export const useAuthStore = create((set) => ({
             return response.data;
         } catch (error) {
             set({ error: error.response?.data?.message || "Error in email verification", loading: false });
+            throw error;
+        }
+    },
+
+    forgotPassword: async (email) => {
+        set({ loading: true, error: null });
+        try {
+            const response = await forgotPassword(email);
+            set({ loading: false });
+            return response.data;
+        } catch (error) {
+            set({ error: error.response?.data?.message || "Error in forgot password", loading: false });
+            throw error;
+        }
+    },
+
+    resetPassword: async (token, password) => {
+        set({ loading: true, error: null });
+        try {
+            const response = await resetPassword(token, password);
+            set({ loading: false });
+            return response.data;
+        } catch (error) {
+            set({ error: error.response?.data?.message || "Error in reset password", loading: false });
             throw error;
         }
     }
